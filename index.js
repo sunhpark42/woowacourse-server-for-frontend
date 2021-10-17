@@ -66,12 +66,11 @@ app.post(`${LEVEL1_SUBWAY_HOST}/members`, (req, res) => {
 });
 
 //로그인
-app.post(`${LEVEL1_SUBWAY_HOST}/login`, (req, res) => {
-  console.log('getResquest', req);
+app.post(`${LEVEL1_SUBWAY_HOST}/login/token`, (req, res) => {
   // 데이터 베이스에서 해당 이메일 찾기
   User.findOne({ email: req.body.email }, (error, user) => {
     if (!user) {
-      return res.json({ loginSuccess: false, message: '없는 유저입니다.' });
+      return res.status(400).json({ loginSuccess: false, message: '없는 유저입니다.' });
     }
 
     // 요청된 이메일이 데이터 베이스에 있다면, 비밀번호가 맞는 비밀번호인지 확인하기.
@@ -87,11 +86,47 @@ app.post(`${LEVEL1_SUBWAY_HOST}/login`, (req, res) => {
         }
 
         // 토큰을 저장한다.
-        res.cookie('x_auth', user.token).status(200).json({ loginSuccess: true, userId: user._id, token: user.token });
+        res.status(200).json({ accessToken: user.token });
       });
     });
   });
 });
+
+app.get(
+  `${LEVEL1_SUBWAY_HOST}/members/me`,
+  (req, res, next) => {
+    // 인증처리를 하는 부분
+    // 클라이언트 쿠키에서 토큰 가져오기
+    const token = req.headers.authorization?.split(' ')[1];
+
+    if (!token) {
+      return res.status(400).json({ message: '토큰없음 ' });
+    }
+
+    // 토큰을 복호화 한 후 유저를 찾는다.
+
+    User.findByToken(token, (error, user) => {
+      if (error) {
+        throw error;
+      }
+
+      if (!user) {
+        return res.json({ isAuthenticated: false, error: true });
+      }
+
+      // 이후 cb에서 정보를 이용하기 위함
+      req.token = token;
+      req.user = user;
+
+      next();
+    });
+  },
+  (req, res) => {
+    // middleware passed
+
+    res.status(200).json({ name: req.user.name, email: req.user.email });
+  }
+);
 
 // auth middleware 이용
 app.get(
