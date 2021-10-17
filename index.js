@@ -35,7 +35,7 @@ app.post(`${LEVEL1_SUBWAY_HOST}/members`, (req, res) => {
 
   const user = new User(req.body);
 
-  user.save((error, document) => {
+  user.save((error, userInfo) => {
     if (error) {
       console.error(error);
       return res.json({ success: false, message: '회원가입에 실패했습니다.' });
@@ -43,6 +43,11 @@ app.post(`${LEVEL1_SUBWAY_HOST}/members`, (req, res) => {
 
     return res.status(200).json({ success: true, message: '회원가입 성공!' });
   });
+});
+
+//로그인
+app.post(`${LEVEL1_SUBWAY_HOST}/login`, (req, res) => {
+  // 데이터 베이스에서 해당 이메일 찾기
 });
 
 app.listen(port, () => console.log(`Example App ${port}`));
