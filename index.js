@@ -35,14 +35,15 @@ const LEVEL1_SUBWAY_HOST = '/level1/subway';
 
 const { User } = require('./level1-subway/models/User');
 
+// 이메일 중복체크
 app.get(`${LEVEL1_SUBWAY_HOST}/members/check-validation`, (req, res) => {
-  // if (!req.query.email) {
-  //   return res.status(400);
-  // }
+  if (!req.query.email) {
+    return res.status(400).json({ message: '쿼리 파라미터가 유효하지 않습니다.' });
+  }
 
   User.findOne({ email: req.query.email }, (error, user) => {
     if (user) {
-      return res.status(400).send(new Error('description'));
+      return res.status(400).json({ message: '중복된 이메일 입니다.' });
     } else {
       return res.status(200).json({ message: '중복된 이메일이 아닙니다.' });
     }
