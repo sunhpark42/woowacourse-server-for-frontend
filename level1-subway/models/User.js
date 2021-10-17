@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const saltRounds = 10;
 
@@ -52,6 +53,51 @@ userSchema.pre('save', function (next) {
     next();
   }
 });
+
+userSchema.methods.comparePassword = function (plainPassword, callback) {
+  bcrypt.compare(plainPassword, this.password, function (error, isMatched) {
+    if (error) {
+      return callback(error);
+    }
+
+    callback(null, isMatched);
+  });
+};
+
+userSchema.methods.generateToken = function (callback) {
+  const user = this;
+  // jsonwebtoken을 이용해 토큰생성
+
+  console.log(user._id.toHexString());
+  const token = jwt.sign(user._id.toHexString(), 'secretToken');
+
+  user.token = token;
+  user.save(function (error, user) {
+    if (error) {
+      return callback(error);
+    }
+
+    callback(null, user);
+  });
+};
+
+userSchema.statics.findByToken = function (token, callback) {
+  const user = this;
+
+  // 토큰 decode
+  jwt.verify(token, 'secretToken', function (error, decodedUserId) {
+    // 유저아이디를 이용해 유저를 찾음
+
+    // 클라이언트의 토큰과 DB에 보관된 토큰이 일치하는지 확인
+    user.findOne({ _id: decodedUserId, token: token }, function (error, user) {
+      if (error) {
+        return callback(error);
+      }
+
+      callback(null, user);
+    });
+  });
+};
 
 const User = mongoose.model('User', userSchema);
 
