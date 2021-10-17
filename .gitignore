@@ -2,4 +2,4 @@ node_modules
 .DS_Store
 
 # environment file
-./config/dev.js
+/config/dev.js
