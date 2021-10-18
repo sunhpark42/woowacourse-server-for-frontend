@@ -32,7 +32,7 @@ yarn && yarn dev
 ## 1. 레벨 1 지하철 노선도
 
 - host : '/level1/subway'
-- [API 명세](https://github.com/sunhpark42/woowacourse-server-for-frontend/docs/API_level1_subway.md)
+- [API 명세](./docs/API_level1_subway.md)
 - 제작 진행 상황 (21. 10. 18 update)
   - 이메일 중복체크 API
   - 회원가입 API
