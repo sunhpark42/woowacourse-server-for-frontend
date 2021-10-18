@@ -26,8 +26,12 @@ yarn && yarn dev
 ## 1. 레벨 1 지하철 노선도
 
 - host : '/level1/subway'
-- 제작 진행 상황
+- 제작 진행 상황 (21. 10. 18 update)
   - 이메일 중복체크 API
   - 회원가입 API
   - 로그인 API
   - 내정보 불러오기 API
+  - 역 조회 API
+  - 역 추가 API
+  - 역 수정 API
+  - 역 삭제 API

@@ -7,8 +7,6 @@ const cookieParser = require('cookie-parser');
 
 const cors = require('cors');
 
-// const { auth } = require('./middleware/auth');
-
 const config = require('./config/key');
 
 //application/x-www-from-urlencoded
