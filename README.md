@@ -6,6 +6,8 @@
 
 - 혹시나 이 API가 먼저 있으면 좋겠다하는게 있다면 제보 주세요. 🎃
 
+- 현재 에러코드는 별다른 구분없이 400 으로 통일되어있습니다.
+
 - mode dev 사용방법
 
 1. mongoDB 가입 및 Database 생성
@@ -30,6 +32,7 @@ yarn && yarn dev
 ## 1. 레벨 1 지하철 노선도
 
 - host : '/level1/subway'
+- [API 명세](https://github.com/sunhpark42/woowacourse-server-for-frontend/docs/API_level1_subway.md)
 - 제작 진행 상황 (21. 10. 18 update)
   - 이메일 중복체크 API
   - 회원가입 API
