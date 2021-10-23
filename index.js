@@ -33,6 +33,7 @@ const LEVEL1_SUBWAY_HOST = '/level1/subway';
 
 const { User } = require('./level1-subway/models/User');
 const { Station } = require('./level1-subway/models/Station');
+const { Line } = require('./level1-subway/models/Line');
 
 const auth = (req, res, next) => {
   // 인증처리를 하는 부분
@@ -313,7 +314,23 @@ app.put(
 
 // LINES
 app.get(`${LEVEL1_SUBWAY_HOST}/lines`, (req, res) => {
-  res.status(200).json([]);
+  Line.find((error, lines) => {
+    if (error) {
+      return res.status(200).json([]);
+    }
+
+    res.status(200).json(
+      lines.map((line) => ({
+        id: Number(line._id),
+        name: line.name,
+        color: line.color,
+        station: line.station,
+        sections: line.sections,
+        createdDate: line.createdDate,
+        modifiedDate: line.updatedDate,
+      }))
+    );
+  });
 });
 
 // auth middleware 이용
