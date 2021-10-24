@@ -27,16 +27,12 @@ mongoose
   .then(() => console.log('Connected to MongoDB'))
   .catch((error) => console.error(error));
 
-app.get('/', (req, res) => res.send('hello world!'));
-
-const LEVEL1_SUBWAY_HOST = '/level1/subway';
-
-const auth = require('./middleware/auth');
+app.use(express.static('public'));
+app.get('/', (req, res) => res.sendFile(__dirname + '/public/index.html'));
 
 const { User } = require('./level1-subway/models/User');
-const { Station } = require('./level1-subway/models/Station');
-const { Line } = require('./level1-subway/models/Line');
 
+const LEVEL1_SUBWAY_HOST = '/level1/subway';
 const Level1Subway = require('./level1-subway/index');
 app.use(LEVEL1_SUBWAY_HOST, Level1Subway);
 
@@ -65,17 +61,6 @@ app.post(`${LEVEL1_SUBWAY_HOST}/login/token`, (req, res) => {
       });
     });
   });
-});
-
-app.get(`${LEVEL1_SUBWAY_HOST}/sections`, (req, res) => {
-  return res.status(200).json({ message: 'temp' });
-});
-
-// auth middleware 이용
-app.get(`${LEVEL1_SUBWAY_HOST}/auth`, auth, (req, res) => {
-  // middleware passed
-
-  res.status(200).json({ _id: req.user._id, name: req.user.name, email: req.user.email });
 });
 
 app.listen(port, () => console.log(`Example App ${port}`));
