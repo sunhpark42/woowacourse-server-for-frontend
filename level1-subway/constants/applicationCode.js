@@ -1,6 +1,7 @@
 const APPLICATION_CODE = {
   // common
   BAD_REQUEST: 400,
+  DB_ERROR: 401,
 
   // authentification
   FIND_USER_BY_TOKEN_ERROR: 1000,
@@ -9,6 +10,10 @@ const APPLICATION_CODE = {
 
   // stations : 2000 - 2999
   CREATE_STATION_ERROR: 2000,
+
+  // lines : 3000 - 3999
+  UPSTATION_SAME_WITH_DOWNSTATION_ERROR: 3000,
+  CREATE_LINE_ERROR: 3001,
 };
 
 module.exports = APPLICATION_CODE;

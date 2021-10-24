@@ -38,14 +38,19 @@ router.post(`/`, auth, (req, res) => {
   const { name, color, upStationId, downStationId, distance, duration } = req.body;
 
   if (upStationId === downStationId) {
-    return res.status(400).json({ message: '상행역과 하행역은 서로 같을 수 없습니다.' });
+    return res.status(400).json({
+      code: APPLICATION_CODE.UPSTATION_SAME_WITH_DOWNSTATION_ERROR,
+      message: '상행역과 하행역은 서로 같을 수 없습니다.',
+    });
   }
 
   let stations = [];
 
   Station.find((error, stationList) => {
     if (error) {
-      return res.status(400).json({ message: '존재하는 지하철 역이 없습니다.' });
+      return res
+        .status(400)
+        .json({ code: APPLICATION_CODE.DB_ERROR, message: '데이터 베이스에서 지하철 목록을 불러올 수 없습니다.' });
     }
 
     stations = stationList
@@ -62,7 +67,9 @@ router.post(`/`, auth, (req, res) => {
     line.save((error, lineInfo) => {
       if (error) {
         console.error(error);
-        return res.status(400).json({ success: false, message: '등록 실패' });
+        return res
+          .status(400)
+          .json({ code: APPLICATION_CODE.CREATE_LINE_ERROR, message: '노선을 등록하지 못했습니다.' });
       }
 
       return res.status(200).json({
