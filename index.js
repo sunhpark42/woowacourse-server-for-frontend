@@ -37,11 +37,8 @@ const { User } = require('./level1-subway/models/User');
 const { Station } = require('./level1-subway/models/Station');
 const { Line } = require('./level1-subway/models/Line');
 
-const StationsAPI = require('./level1-subway/api/stations');
-const MemberAPI = require('./level1-subway/api/members');
-
-app.use(`${LEVEL1_SUBWAY_HOST}/stations`, StationsAPI);
-app.use(`${LEVEL1_SUBWAY_HOST}/members`, MemberAPI);
+const Level1Subway = require('./level1-subway/index');
+app.use(LEVEL1_SUBWAY_HOST, Level1Subway);
 
 //로그인
 app.post(`${LEVEL1_SUBWAY_HOST}/login/token`, (req, res) => {
