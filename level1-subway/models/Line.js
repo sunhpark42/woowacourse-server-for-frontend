@@ -12,13 +12,17 @@ const lineSchema = mongoose.Schema({
     maxLength: 20,
     unique: true,
   },
-  color: String,
+  color: {
+    type: String,
+    unique: true,
+  },
   stations: {
     type: Array,
     items: {},
   },
   sections: {
     type: Array,
+    items: {},
   },
   createdDate: {
     type: Date,

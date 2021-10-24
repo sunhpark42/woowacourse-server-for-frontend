@@ -324,13 +324,100 @@ app.get(`${LEVEL1_SUBWAY_HOST}/lines`, (req, res) => {
         id: Number(line._id),
         name: line.name,
         color: line.color,
-        station: line.station,
+        stations: line.stations,
         sections: line.sections,
         createdDate: line.createdDate,
         modifiedDate: line.updatedDate,
       }))
     );
   });
+});
+
+// POST LINES
+app.post(
+  `${LEVEL1_SUBWAY_HOST}/lines`,
+  (req, res, next) => {
+    // 인증처리를 하는 부분
+    // 클라이언트 쿠키에서 토큰 가져오기
+    const token = req.headers.authorization?.split(' ')[1];
+
+    if (!token) {
+      return res.status(400).json({ message: '토큰없음 ' });
+    }
+
+    // 토큰을 복호화 한 후 유저를 찾는다.
+
+    User.findByToken(token, (error, user) => {
+      if (error) {
+        throw error;
+      }
+
+      if (!user) {
+        return res.json({ isAuthenticated: false, error: true });
+      }
+
+      // 이후 cb에서 정보를 이용하기 위함
+      req.token = token;
+      req.user = user;
+
+      next();
+    });
+  },
+  (req, res) => {
+    const { name, color, upStationId, downStationId, distance, duration } = req.body;
+
+    if (upStationId === downStationId) {
+      return res.status(400).json({ message: '상행역과 하행역은 서로 같을 수 없습니다.' });
+    }
+
+    let stations = [];
+
+    Station.find((error, stationList) => {
+      if (error) {
+        return res.status(400).json({ message: '존재하는 지하철 역이 없습니다.' });
+      }
+
+      stations = stationList
+        .filter(({ _id }) => _id === Number(upStationId) || _id === Number(downStationId))
+        .map((station) => ({ ...station, id: station._id }));
+
+      const line = new Line({
+        name,
+        color,
+        stations,
+        sections: [{ upStation: upStationId, downStation: downStationId, distance, duration }],
+      });
+
+      line.save((error, lineInfo) => {
+        if (error) {
+          console.error(error);
+          return res.status(400).json({ success: false, message: '등록 실패' });
+        }
+
+        return res.status(200).json({
+          id: lineInfo._id,
+          name: lineInfo.name,
+          color: lineInfo.color,
+          stations: lineInfo.stations,
+          sections: lineInfo.sections,
+          createdDate: lineInfo.createdDate,
+          updatedDate: lineInfo.updatedDate,
+        });
+      });
+    });
+  }
+);
+
+app.put(`${LEVEL1_SUBWAY_HOST}/lines/:id`, (req, res) => {
+  return res.status(200).json({ message: 'temp' });
+});
+
+app.delete(`${LEVEL1_SUBWAY_HOST}/lines/:id`, (req, res) => {
+  return res.status(200).json({ message: 'temp' });
+});
+
+app.get(`${LEVEL1_SUBWAY_HOST}/sections`, (req, res) => {
+  return res.status(200).json({ message: 'temp' });
 });
 
 // auth middleware 이용
