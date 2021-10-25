@@ -14,4 +14,82 @@ main {
   height: 100%;
 
   margin: 0 auto;
+  padding-top: 2rem;
+}
+
+.demo-link,
+.api-document-link {
+  padding: 0.5rem 1rem;
+
+  color: black;
+  background-color: white;
+  border: 1px solid grey;
+  border-radius: 2rem;
+
+  text-decoration: none;
+}
+
+.demo-link:hover,
+.api-document-link:hover {
+  color: white;
+  background-color: black;
+}
+
+.api-section {
+  border-bottom: 1px solid grey;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+  justify-items: center;
+
+  position: relative;
+}
+
+.api-section:nth-child(2n - 1) {
+  background-color: #e5e5e5;
+}
+
+.api-section h2 {
+  font-size: 1rem;
+}
+
+.api-section.table-header {
+  color: white;
+  background-color: black;
+}
+
+.api-section.preparing::after {
+  content: '🛠 제작중';
+
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  background-color: rgba(148, 148, 148, 0.7);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 1rem;
+  font-weight: bold;
+
+  text-shadow: -1px 0 1px white, 0 1px 1px white, 1px 0 1px white, 0 -1px 1px white;
+}
+
+footer {
+  width: 100%;
+  padding: 1rem 0;
+
+  color: white;
+  background-color: black;
+
+  text-align: center;
+}
+
+.mb-1 {
+  margin-bottom: 1rem;
 }
