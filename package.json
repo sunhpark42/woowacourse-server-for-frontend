@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start-gendoc": "node swagger.js"
   },
   "author": "sunny <sunhpark42@gmail.com>",
   "license": "ISC",
@@ -18,7 +19,8 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.11",
-    "mongoose-auto-increment": "^5.0.1"
+    "mongoose-auto-increment": "^5.0.1",
+    "swagger-autogen": "^2.11.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.13"

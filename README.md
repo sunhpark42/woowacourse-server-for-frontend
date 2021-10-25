@@ -35,7 +35,8 @@ yarn && yarn dev
 
 - host : '/level1/subway'
 - [API 명세](./docs/API_level1_subway.md)
-- 제작 진행 상황 (21. 10. 18 update)
+- 제작 진행 상황 (21. 10. 26 update)
+
   - 이메일 중복체크 API
   - 회원가입 API
   - 로그인 API
@@ -44,3 +45,9 @@ yarn && yarn dev
   - 역 추가 API
   - 역 수정 API
   - 역 삭제 API
+  - 노선 조회 API
+  - 노선 추가 API
+
+  ## 레벨 2, 장바구니
+
+  - host: '/level2/cart'
