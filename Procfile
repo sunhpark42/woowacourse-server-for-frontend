@@ -1,1 +1,1 @@
-web: yarn start
+web: yarn cache clean && yarn add && yarn start
