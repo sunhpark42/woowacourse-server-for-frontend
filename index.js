@@ -37,4 +37,9 @@ app.use(LEVEL1_SUBWAY_HOST, Level1Subway);
 
 /* level2 cart router */
 
+const LEVEL2_CART_HOST = '/level2/cart';
+const Level2Cart = require('./level2-cart/index');
+
+app.use(LEVEL2_CART_HOST, Level2Cart);
+
 app.listen(PORT, () => console.log(`App is Running at ${PORT}`));
