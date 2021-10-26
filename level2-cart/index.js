@@ -1,4 +1,8 @@
 const express = require('express');
+
+const swaggerUI = require('swagger-ui-express');
+const swaggerJsdoc = require('swagger-jsdoc');
+
 const router = express.Router();
 
 const CartAPI = require('./api/cart');
@@ -11,9 +15,6 @@ router.use(function timeLog(req, res, next) {
   console.log('Time: ', Date.now());
   next();
 });
-
-const swaggerUI = require('swagger-ui-express');
-const swaggerJsdoc = require('swagger-jsdoc');
 
 const options = {
   swaggerDefinition: {
