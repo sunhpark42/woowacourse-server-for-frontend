@@ -25,7 +25,7 @@ const options = {
     host: 'localhost:5000/level2/cart',
     basePath: '/docs',
   },
-  apis: ['./level2-cart/api/*.js', '*/swagger/*.yml'],
+  apis: ['/level2-cart/api/*.js'],
 };
 
 const specs = swaggerJsdoc(options);

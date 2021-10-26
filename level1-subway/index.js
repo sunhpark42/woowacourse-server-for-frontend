@@ -31,7 +31,7 @@ const options = {
     host: 'localhost:5000/level1/subway',
     basePath: '/docs',
   },
-  apis: ['./level1-subway/api/*.js', './level1-subway/swagger/*.yml'],
+  apis: ['/level1-subway/api/*.js'],
 };
 
 const specs = swaggerJsdoc(options);
