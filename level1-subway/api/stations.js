@@ -11,20 +11,6 @@ router.use(function timeLog(req, res, next) {
   next();
 });
 
-/**
- * @swagger
- *  /stations:
- *    get:
- *      tags:
- *      - 역 관리 API
- *      description: 역 전체 조회
- *      produces:
- *      - application/json
- *      responses:
- *       200:
- *        description: 역 전체 조회 성공
- */
-
 // GET Station
 router.get(`/`, (req, res) => {
   Station.find((error, stations) => {

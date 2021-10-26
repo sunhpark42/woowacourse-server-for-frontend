@@ -1,0 +1,8 @@
+{
+  "swagger": "2.0",
+  "info": {
+  "description": "우아한 테크코스 3기 레벨 2 장바구니 API 명세입니다.",
+  "version": "1.0.0",
+  "title": "레벨 2 장바구니 미션 API 명세"
+  }
+}

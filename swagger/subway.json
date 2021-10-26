@@ -1,0 +1,89 @@
+{
+  "swagger": "2.0",
+  "info": {
+  "description": "우아한 테크코스 3기 레벨 1 지하철 API 명세입니다.",
+  "version": "1.0.0",
+  "title": "레벨 1 지하철 미션 API 명세"
+  },
+
+  "paths": {
+    "/level1/subway/stations": {
+      "get": {
+        "tags": ["역 관리 API"],
+        "summary": "지하철 역 전체 조회",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+          "description": "역 전체조회 성공",
+          "schema": {
+            "$ref": "#/definitions/Stations"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["역 관리 API"],
+        "summary": "지하철 역 추가",
+        "parameters": [
+          {
+            "name": "accessToken",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "지하철 역 이름으로 추가",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "역 추가 성공",
+            "schema": {
+              "$ref": "#/definitions/Station"
+              }
+          }
+        }
+      }
+    }
+  },
+
+  "definitions": {
+    "Station": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "createdDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedDate": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "Stations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Station"
+      }
+    }
+  }
+}

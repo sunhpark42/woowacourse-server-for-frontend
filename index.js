@@ -43,3 +43,27 @@ const Level2Cart = require('./level2-cart/index');
 app.use(LEVEL2_CART_HOST, Level2Cart);
 
 app.listen(PORT, () => console.log(`App is Running at ${PORT}`));
+
+app.use(express.static('swagger'));
+app.get('/swagger/subway.json', (req, res) => res.sendFile(__dirname + '/swagger/subway.json'));
+app.get('/swagger/cart.json', (req, res) => res.sendFile(__dirname + '/swagger/cart.json'));
+
+const swaggerUI = require('swagger-ui-express');
+
+const options = {
+  explorer: true,
+  swaggerOptions: {
+    urls: [
+      {
+        url: '/swagger/subway.json',
+        name: '레벨 1 지하철 노선도 API 명세',
+      },
+      {
+        url: '/swagger/cart.json',
+        name: '레벨 2 지하철 노선도 API 명세',
+      },
+    ],
+  },
+};
+
+app.use('/docs', swaggerUI.serve, swaggerUI.setup(null, options));
