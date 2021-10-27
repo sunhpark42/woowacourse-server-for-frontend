@@ -16,13 +16,15 @@ router.post(`/token`, (req, res) => {
     if (!user) {
       return res
         .status(400)
-        .json({ code: APPLICATION_CODE.SIGN_IN_ERROR, message: '로그인 정보가 유효하지 않습니다.' });
+        .json({ code: APPLICATION_CODE?.SIGN_IN_ERROR, message: '로그인 정보가 유효하지 않습니다.' });
     }
 
     // 요청된 이메일이 데이터 베이스에 있다면, 비밀번호가 맞는 비밀번호인지 확인하기.
     user.comparePassword(req.body.password, (error, isMatched) => {
       if (!isMatched) {
-        return res.json({ code: APPLICATION_CODE.SIGN_IN_ERROR, message: '로그인 정보가 유효하지 않습니다.' });
+        return res
+          .status(400)
+          .json({ code: APPLICATION_CODE?.SIGN_IN_ERROR, message: '로그인 정보가 유효하지 않습니다.' });
       }
 
       // 비밀번호가 같다면 토큰 생성
