@@ -18,12 +18,14 @@
     </div>
     <section class="api-section table-header">
       <p>미션</p>
-      <p>HOST URL</p>
+      <p>HOST URL<br /><span>(클릭하면 복사 됩니다.)</span></p>
       <p>데모 / 문서 링크</p>
     </section>
     <section class="api-section">
       <h2>level1 - 지하철 미션</h2>
-      <p><strong>${PUBLIC_URL}/level1/subway</strong></p>
+      <p>
+        <strong class="host-url">https://woowacourse-sever-for-frontend.herokuapp.com/level1/subway</strong>
+      </p>
       <div>
         <a class="demo-link" href="https://sunny-woowa-subway.netlify.app" rel="noopener noreferrer" target="_blank">해당
           api 가 사용된 페이지
@@ -34,7 +36,9 @@
     </section>
     <section class="api-section preparing">
       <h2>level2 - 장바구니 미션</h2>
-      <p><strong>${PUBLIC_URL}/level2/cart</strong></p>
+      <p>
+        <strong class="host-url">https://woowacourse-sever-for-frontend.herokuapp.com/level2/cart</strong>
+      </p>
       <div>
         <a class="demo-link" href="#" rel="noopener noreferrer" target="_blank">해당
           api 가 사용된 페이지
@@ -46,7 +50,9 @@
     </section>
     <section class="api-section preparing">
       <h2>level2 - 지하철 미션</h2>
-      <p><strong>${PUBLIC_URL}/level2/subway</strong></p>
+      <p>
+        <strong class="host-url">https://woowacourse-sever-for-frontend.herokuapp.com/level2/subway</strong>
+      </p>
       <div>
         <a class="demo-link" href="#" rel="noopener noreferrer" target="_blank">해당
           api 가 사용된 페이지
@@ -62,5 +68,29 @@
   <footer>created by Sunny (@sunhpark42)</footer>
 
 </body>
+
+<script>
+  const $host_urls = document.querySelectorAll('.host-url');
+
+  $host_urls.forEach((url) => {
+    url.addEventListener('click', (event) => {
+      const targetText = event.target.textContent;
+
+      const $tempElement = document.createElement('input');
+      $tempElement.value = targetText;
+
+      document.body.appendChild($tempElement);
+      $tempElement.select();
+      $tempElement.select(0, 9999);
+
+      document.execCommand("Copy");
+
+      document.body.removeChild($tempElement);
+
+      alert('복사되었습니다.');
+    })
+  })
+
+</script>
 
 </html>

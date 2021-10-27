@@ -17,6 +17,15 @@ main {
   padding-top: 2rem;
 }
 
+.table-header p {
+  text-align: center;
+}
+
+.table-header span {
+  font-size: 0.8rem;
+  font-weight: normal;
+}
+
 .demo-link,
 .api-document-link {
   padding: 0.5rem 1rem;
@@ -78,6 +87,10 @@ main {
   font-weight: bold;
 
   text-shadow: -1px 0 1px white, 0 1px 1px white, 1px 0 1px white, 0 -1px 1px white;
+}
+
+.host-url {
+  cursor: copy;
 }
 
 @keyframes updown {
