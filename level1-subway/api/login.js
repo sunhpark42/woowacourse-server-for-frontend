@@ -3,6 +3,8 @@ const router = express.Router();
 
 const { default: APPLICATION_CODE } = require('../constants/applicationCode');
 
+const { User } = require('../models/User');
+
 router.use(function timeLog(req, res, next) {
   console.log('Time: ', Date.now());
   next();
