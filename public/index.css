@@ -80,6 +80,23 @@ main {
   text-shadow: -1px 0 1px white, 0 1px 1px white, 1px 0 1px white, 0 -1px 1px white;
 }
 
+@keyframes updown {
+  from {
+    transform: translateY(0.5rem);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+#tyf-link {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+
+  animation: updown 0.8s ease-in-out infinite alternate;
+}
+
 footer {
   width: 100%;
   padding: 1rem 0;
